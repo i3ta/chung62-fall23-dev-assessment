@@ -1,5 +1,7 @@
 import styles from './table.module.css'
 
+function handleRightClick () {}
+
 function Row ({ rowData }) {
     // Deconstruct data
     const { name, avatar, hero_project, notes, email, phone, rating, status, id } = rowData;
