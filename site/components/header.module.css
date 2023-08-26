@@ -5,13 +5,36 @@
     top: 0;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 20px;
     height: 80px;
-    width: 100%;
+    width: calc(100% - 40px);
 
     /* Glass effect */
     background: rgba(255, 255, 255, 0.65);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+}
+
+.newButton {
+    border: none;
+    border-radius: 25px;
+    padding: 0 20px;
+    height: 50px;
+    background: rgb(17, 153, 158);
+    background: linear-gradient(
+        90deg,
+        rgb(36, 186, 166) 0%,
+        rgba(48, 227, 202, 1) 100%
+    );
+    cursor: pointer;
+    font-size: 20px;
+    transition: opacity 0.2s;
+}
+
+.newButton:hover {
+    opacity: 0.7;
+    transition: opacity 0.2s;
 }
