@@ -1,10 +1,49 @@
-/*
-    Styles for table
-*/
+/* Styles for table */
 
 .table {
-    font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin",
-            "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    margin: auto;
+    border-collapse: collapse;
+    font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue",
+        Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-.header {}
+.table th,
+.table td {
+    padding: 5px;
+}
+
+.header {
+    background-color: #acacac;
+}
+
+.email {
+    text-decoration: none;
+    color: #000000;
+}
+
+.rowOdd {
+    background-color: #eeeeee;
+    transition: background-color 0.2s;
+}
+
+.rowEven {
+    background-color: #e5e5e5;
+    transition: background-color 0.2s;
+}
+
+.rowOdd:hover,
+.rowEven:hover {
+    background-color: #cbcbcb;
+    transition: background-color 0.2s;
+}
+
+.avatarContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.avatar {
+    border-radius: 8px;
+    height: 32px;
+}
