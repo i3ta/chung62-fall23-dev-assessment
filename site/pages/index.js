@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchData } from '../components/api';
 import Header from '../components/header';
+import Utils from '../components/utils';
 import Table from '../components/table';
 
 export default function Page () {
@@ -16,9 +17,12 @@ export default function Page () {
         fetchDataAsync();
     }, []);
 
+    function addNew(){}
+
     return (
         <>
             <Header />
+            <Utils addNew={addNew} />
             <Table key={data.id} tableData={data} />
         </>
     );

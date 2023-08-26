@@ -1,40 +1,37 @@
 /* Styles for table */
 
+/* General styles */
 .table {
-    margin: auto;
+    margin: 10px;
     border-collapse: collapse;
     font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue",
         Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-.table th,
+.table th {
+    padding: 10px 5px;
+}
+
 .table td {
-    padding: 5px;
+    border-top: solid 0.5px #efefef;
+    padding: 10px 5px;
 }
 
+/* Table header */
 .header {
-    background-color: #acacac;
+    color: #b0b0b0;
+    font-size: 12px;
 }
 
-.email {
-    text-decoration: none;
-    color: #000000;
-}
-
-.rowOdd {
-    background-color: #eeeeee;
-    transition: background-color 0.2s;
-}
-
-.rowEven {
-    background-color: #e5e5e5;
-    transition: background-color 0.2s;
-}
-
-.rowOdd:hover,
-.rowEven:hover {
-    background-color: #cbcbcb;
-    transition: background-color 0.2s;
+/* Contact name */
+.contactContainer {
+    display: flex;
+    height: 66px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-family: "HelveticaNeue", "Helvetica Neue",
+        Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .avatarContainer {
@@ -44,6 +41,39 @@
 }
 
 .avatar {
-    border-radius: 8px;
+    border-radius: 16px;
     height: 32px;
+}
+
+/* Contact info */
+.contactInfo {
+    font-size: 12px;
+}
+
+/* Status */
+.statusActive, 
+.statusInactive {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.statusInactive {
+    background-color: #ff6262;
+    color: #ffffff;
+}
+
+.statusActive {
+    background-color: #9dff79;
+    color: #ffffff;
+}
+
+/* Project */
+.projectContainer {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: "HelveticaNeue", "Helvetica Neue",
+        Helvetica, Arial, "Lucida Grande", sans-serif;
+    text-align: center;
 }
