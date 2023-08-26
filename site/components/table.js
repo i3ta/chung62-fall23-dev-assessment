@@ -34,6 +34,14 @@ function Project({ project }) {
     );
 }
 
+function Rating ({ rating }) {
+    return (
+        <div style={{textAlign: 'center'}}>
+            {rating}
+        </div>
+    )
+}
+
 function Row({ rowData }) {
     // Deconstruct data
     const {
@@ -71,7 +79,7 @@ function Row({ rowData }) {
             <td>
                 <Status status={status} />
             </td>
-            <td>{rating}</td>
+            <td><Rating rating={rating} /></td>
         </tr>
     );
 }
