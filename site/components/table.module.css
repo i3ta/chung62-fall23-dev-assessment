@@ -2,6 +2,7 @@
 
 .table {
     margin: auto;
+    margin-top: 80px;
     border-collapse: collapse;
     font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue",
         Helvetica, Arial, "Lucida Grande", sans-serif;
