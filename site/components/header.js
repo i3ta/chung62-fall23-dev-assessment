@@ -1,7 +1,8 @@
 import styles from './header.module.css';
+import { deleteData } from './api';
 
 function newProfile () {
-
+    deleteData(1);
 }
 
 export default function Header () {

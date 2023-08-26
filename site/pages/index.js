@@ -1,21 +1,7 @@
 import { useState, useEffect } from 'react';
+import { fetchData } from '../components/api';
 import Header from '../components/header';
 import Table from '../components/table';
-
-// Fetch database data from api
-async function fetchData () {
-    try {
-        const response = await fetch('/api/users', {
-            method: 'GET'
-        });
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.error('Error: ', error);
-        return [];
-    }
-}
 
 export default function Page () {
     const [data, setData] = useState([]);;
