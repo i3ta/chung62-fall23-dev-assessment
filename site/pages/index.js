@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Header from '../components/header';
 import Table from '../components/table';
 
 // Fetch database data from api
@@ -30,6 +31,9 @@ export default function Page () {
     }, []);
 
     return (
-        <Table key={data.id} tableData={data} />
+        <>
+            <Header />
+            <Table key={data.id} tableData={data} />
+        </>
     );
 }
