@@ -1,0 +1,98 @@
+/* Styles for overlay */
+
+/* Overlay blocks */
+.overlayBackground {
+    z-index: 1000;
+    top: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000080;
+}
+
+.overlayForeground {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 3px 6px #00000048;
+    width: 500px;
+    height: 400px;
+    background-color: #ffffff;
+}
+
+/* Close button */
+.closeButton {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.closeButton:hover {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+/* Input fields */
+.input {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 245px 245px;
+    grid-template-rows: 48px 28px 28px 28px 28px auto 28px;
+    grid-auto-flow: dense;
+}
+
+.input input,
+.input textarea {
+    border: solid 0.5px #efefef;
+    border-radius: 10px;
+    padding: 2px 5px;
+}
+
+.input .inputName {
+    font-size: 30px;
+}
+
+.activity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.avatarPreview {
+    width: 200px;
+    height: 200px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.buttonContainer input {
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.buttonContainer input:hover {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.submit {
+    background-color: #11999e;
+    color: #ffffff;
+}

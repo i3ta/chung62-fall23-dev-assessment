@@ -29,7 +29,7 @@ function Project({ project }) {
                 backgroundColor: `hsl(${c}, 75%, 90%)`,
             }}
         >
-            {project[0].toUpperCase() + project.substring(1)}
+            {(project.length > 0 ? project[0].toUpperCase() + project.substring(1) : "")}
         </div>
     );
 }
@@ -85,7 +85,8 @@ function Row({ rowData }) {
 }
 
 export default function Table({ tableData }) {
-    console.log("created table");
+    console.log("creating table");
+    console.log(typeof tableData);
     return (
         <table className={styles.table}>
             <thead className={styles.header}>
