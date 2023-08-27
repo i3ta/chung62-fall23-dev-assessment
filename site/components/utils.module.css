@@ -1,0 +1,22 @@
+/* Utility function bar styles */
+
+.utils {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.newButton {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #11999e;
+    color: #ffffff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.newButton:hover {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}

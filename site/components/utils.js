@@ -4,7 +4,7 @@ import styles from './utils.module.css'
 
 function Button ({ addNew }) {
     return (
-        <button onClick={addNew}>New User</button>
+        <button className={styles.newButton} onClick={addNew}>New User</button>
     );
 }
 
