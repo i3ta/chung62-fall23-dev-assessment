@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import Link from "next/link";
 import styles from "./contextMenu.module.css";
 
 export default function ContextMenu ({ vis, id, loc, onEdit, onDelete }) {
     console.log(id);
-    
-    const showNotes = () => {}
 
     const edit = () => {
         onEdit(id);
@@ -16,7 +14,7 @@ export default function ContextMenu ({ vis, id, loc, onEdit, onDelete }) {
     
     return (
         <div className={styles.contextMenu} style={{display: (vis ? "block" : "none"), top: loc.y, left: loc.x}}>
-            <div onClick={showNotes}>Notes</div>
+            <div><Link href={`/notes/${id}`}>Notes</Link></div>
             <div onClick={edit}>Edit</div>
             <div onClick={del}>Delete</div>
         </div>

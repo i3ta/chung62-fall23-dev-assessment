@@ -14,4 +14,17 @@ async function fetchData () {
     }
 }
 
-export { fetchData };
+async function fetchUser (id) {
+    try {
+        const response = await fetch(`/api/user/${id}`, {
+            method: 'GET'
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error: ', error);
+        return [];
+    }
+}
+
+export { fetchData, fetchUser };

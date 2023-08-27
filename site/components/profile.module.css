@@ -1,0 +1,56 @@
+/* Profile styles */
+
+.profileContainer {
+    display: grid;
+    grid-template-columns: 300px 300px;
+    gap: 10px;
+    margin: 20px;
+}
+
+/* Tags */
+.tags {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+.statusActive, 
+.statusInactive {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.statusInactive {
+    background-color: #ff6262;
+    color: #ffffff;
+}
+
+.statusActive {
+    background-color: #9dff79;
+    color: #ffffff;
+}
+
+.projectContainer {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: "HelveticaNeue", "Helvetica Neue",
+        Helvetica, Arial, "Lucida Grande", sans-serif;
+    text-align: center;
+}
+
+/* Contact */
+.contact {
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Labels */
+.label {
+    margin-bottom: 0;
+}
