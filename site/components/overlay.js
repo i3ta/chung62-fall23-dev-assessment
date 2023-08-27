@@ -34,11 +34,11 @@ export default function Overlay({ user, setUser, visibility, closeOverlay, modif
                         className={styles.activity}
                         style={{ gridColumn: "1/2" }}
                     >
-                        <label for="active">Active</label>
+                        <label for="status">Active</label>
                         <input
                             type="checkbox"
-                            name="active"
-                            value={user["active"]}
+                            name="status"
+                            value={user["status"]}
                             onChange={onChange}
                             required
                         />
