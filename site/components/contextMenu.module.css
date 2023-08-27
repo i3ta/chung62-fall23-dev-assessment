@@ -1,0 +1,24 @@
+/* Context menu styles */
+
+.contextMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px #00000080;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.contextMenu div {
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.contextMenu div:hover {
+    background-color: #efefef;
+    transition: background-color 0.2s;
+}

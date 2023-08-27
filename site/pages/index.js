@@ -4,6 +4,7 @@ import Header from "../components/header";
 import Utils from "../components/utils";
 import Table from "../components/table";
 import Overlay from "../components/overlay";
+import ContextMenu from "../components/contextMenu";
 
 function getPreset (id) {
     console.log(`preset for ID: ${id}`);
@@ -26,6 +27,7 @@ export default function Page() {
     const [data, setData] = useState([]);
     const [overlayOpen, setOverlayOpen] = useState(false);
     const [currentID, setCurrentID] = useState(0);
+    const [showContext, setShowContext] = useState(false);
     const [user, setUser] = useState({
         "name": "",
         "avatar": "",
@@ -38,9 +40,6 @@ export default function Page() {
         "id": "-1",
     });
 
-    console.log('type of user: ');
-    console.log(typeof user);
-
     useEffect(() => {
         async function fetchDataAsync() {
             const fetchedData = await fetchData();
@@ -50,35 +49,27 @@ export default function Page() {
                 const user = fetchedData[i];
                 maxID = Math.max(maxID, parseInt(user['id']));
             }
-            console.log(maxID);
             setCurrentID(maxID + 1);
-            console.log("fetched data");
-            console.log(`Current ID: ${currentID}`);
         }
 
         fetchDataAsync();
     }, []);
 
     const openOverlay = () => {
-        console.log("open overlay");
         setOverlayOpen(true);
     };
 
     const closeOverlay = () => {
-        console.log("close overlay");
         setOverlayOpen(false);
     };
 
     const changeUser = (id) => {
-        console.log(`modifiying ${id}`);
         setUser(data.filter(user => user['id'] === id)[0]);
         openOverlay();
     }
     
     const modifyUser = () => {
-        console.log(user);
         deleteUser(user['id']);
-        console.log([...data, user]);
         setData([...data, user]);
         if(parseInt(user['id']) === currentID) {
             setCurrentID(currentID + 1);
@@ -96,11 +87,16 @@ export default function Page() {
         openOverlay();
     };
 
+    const onRightClick = (id, e) => {
+        console.log(`Recieved click ${id}`);
+        setShowContext(true);
+    }
+
     return (
         <>
             <Header />
             <Utils addNew={newUser} />
-            <Table key={data.id} tableData={data} />
+            <Table key={data.id} tableData={data} rightClickAction={onRightClick} />
             <Overlay
                 user={user}
                 setUser={setUser}
@@ -108,6 +104,7 @@ export default function Page() {
                 closeOverlay={closeOverlay}
                 modifyUser={modifyUser}
             />
+            <ContextMenu vis={showContext} />
         </>
     );
 }

@@ -42,7 +42,7 @@ function Rating ({ rating }) {
     )
 }
 
-function Row({ rowData }) {
+function Row({ rowData, rightClickAction }) {
     // Deconstruct data
     const {
         name,
@@ -56,9 +56,14 @@ function Row({ rowData }) {
         id,
     } = rowData;
 
+    const onRightClick = (e) => {
+        e.preventDefault();
+        rightClickAction(id, e);
+    }
+
     // Return table row
     return (
-        <tr className={id % 2 ? styles.rowEven : styles.rowOdd}>
+        <tr className={id % 2 ? styles.rowEven : styles.rowOdd} onContextMenu={onRightClick}>
             <td className={styles.contactContainer}>
                 <div className={styles.avatarContainer}>
                     <img
@@ -84,9 +89,7 @@ function Row({ rowData }) {
     );
 }
 
-export default function Table({ tableData }) {
-    console.log("creating table");
-    console.log(typeof tableData);
+export default function Table({ tableData, rightClickAction }) {
     return (
         <table className={styles.table}>
             <thead className={styles.header}>
@@ -100,7 +103,7 @@ export default function Table({ tableData }) {
             </thead>
             <tbody>
                 {tableData.map((rowData) => {
-                    return <Row key={rowData.id} rowData={rowData} />;
+                    return <Row key={rowData.id} rowData={rowData} rightClickAction={rightClickAction} />;
                 })}
             </tbody>
         </table>

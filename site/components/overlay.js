@@ -1,9 +1,6 @@
 import styles from "./overlay.module.css";
 
 export default function Overlay({ user, setUser, visibility, closeOverlay, modifyUser }) {
-    console.log(user);
-    console.log(`ID ${user['id']}`);
-
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
@@ -34,7 +31,7 @@ export default function Overlay({ user, setUser, visibility, closeOverlay, modif
                         className={styles.activity}
                         style={{ gridColumn: "1/2" }}
                     >
-                        <label for="status">Active</label>
+                        <label>Active</label>
                         <input
                             type="checkbox"
                             name="status"
