@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { fetchData } from "../components/api";
 import Header from "../components/header";
 import Utils from "../components/utils";
@@ -41,6 +42,9 @@ export default function Page() {
     });
     const [loc, setLoc] = useState({ x: 0, y: 0 });
     const [targetID, setTargetID] = useState("-1");
+    const router = useRouter();
+    const page = router.query.pg;
+    const [pageCount, setPageCount] = useState(0);
 
     useEffect(() => {
         async function fetchDataAsync() {
@@ -52,6 +56,7 @@ export default function Page() {
                 maxID = Math.max(maxID, parseInt(user["id"]));
             }
             setCurrentID(maxID + 1);
+            setPageCount(Math.ceil(fetchedData.length / 10));
         }
 
         fetchDataAsync();
@@ -114,19 +119,23 @@ export default function Page() {
     return (
         <>
             <Header />
-            <Utils addNew={newUser} />
-            <Table
-                key={data.id}
-                tableData={data}
-                rightClickAction={onRightClick}
-            />
-            <Overlay
-                user={user}
-                setUser={setUser}
-                visibility={overlayOpen}
-                closeOverlay={closeOverlay}
-                modifyUser={modifyUser}
-            />
+            {
+                page && <>
+                    <Utils addNew={newUser} pageCount={pageCount} curPage={page} />
+                    <Table
+                        key={data.id}
+                        tableData={data.slice((page - 1) * 10, page * 10)}
+                        rightClickAction={onRightClick}
+                    />
+                    <Overlay
+                        user={user}
+                        setUser={setUser}
+                        visibility={overlayOpen}
+                        closeOverlay={closeOverlay}
+                        modifyUser={modifyUser}
+                    />
+                </>
+            }
             <ContextMenu
                 vis={showContext}
                 loc={loc}
