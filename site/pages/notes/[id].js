@@ -14,7 +14,7 @@ export default function Notes() {
             {id && (
             <>
                 <Header />
-                <Link className={styles.backButton} href="../"><AiOutlineLeft />Back</Link>
+                <Link className={styles.backButton} href="../1"><AiOutlineLeft />Back</Link>
                 <Profile id={id} />
             </>
             )}

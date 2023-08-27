@@ -6,6 +6,7 @@ import Utils from "../components/utils";
 import Table from "../components/table";
 import Overlay from "../components/overlay";
 import ContextMenu from "../components/contextMenu";
+import Stats from "../components/stats";
 
 function getPreset(id) {
     console.log(`preset for ID: ${id}`);
@@ -45,6 +46,8 @@ export default function Page() {
     const router = useRouter();
     const page = router.query.pg;
     const [pageCount, setPageCount] = useState(0);
+    const [stats, setStats] = useState({});
+    const [statsVisible, setStatsVisible] = useState(false);
 
     useEffect(() => {
         async function fetchDataAsync() {
@@ -77,16 +80,16 @@ export default function Page() {
 
     const modifyUser = () => {
         const cmp = (a, b) => {
-            const A = parseInt(a['id']);
-            const B = parseInt(b['id']);
-            if(A < B) return -1;
-            if(A > B) return 1;
+            const A = parseInt(a["id"]);
+            const B = parseInt(b["id"]);
+            if (A < B) return -1;
+            if (A > B) return 1;
             return 0;
-        }
+        };
 
         var tmpData = data.filter((u) => u["id"] !== user["id"]);
         setData([...tmpData, user].sort(cmp));
-        setPageCount(Math.ceil((tmpData.length + 1) / 10))
+        setPageCount(Math.ceil((tmpData.length + 1) / 10));
         if (parseInt(user["id"]) === currentID) {
             setCurrentID(currentID + 1);
         }
@@ -99,7 +102,7 @@ export default function Page() {
         setData(newData);
         const newPageCount = Math.ceil(newData.length / 10);
         setPageCount(newPageCount);
-        if(page > newPageCount) router.replace(`/${newPageCount}`)
+        if (page > newPageCount) router.replace(`/${newPageCount}`);
     };
 
     const newUser = () => {
@@ -108,11 +111,15 @@ export default function Page() {
     };
 
     const onRightClick = (id, e) => {
-        console.log(`Recieved click ${id}`);
-        console.log(`Position: ${e.pageX} ${e.pageY}`);
         setLoc({ x: e.pageX, y: e.pageY });
         setShowContext(true);
         setTargetID(id);
+    };
+
+    const showStats = () => {
+        console.log("SHOW STATS");
+        console.log(stats);
+        setStatsVisible(true);
     };
 
     useEffect(() => {
@@ -123,10 +130,14 @@ export default function Page() {
 
     return (
         <>
-            <Header />
-            {
-                page && <>
-                    <Utils addNew={newUser} pageCount={pageCount} curPage={page} />
+            <Header showStats={showStats} />
+            {page && (
+                <>
+                    <Utils
+                        addNew={newUser}
+                        pageCount={pageCount}
+                        curPage={page}
+                    />
                     <Table
                         key={data.id}
                         tableData={data.slice((page - 1) * 10, page * 10)}
@@ -140,14 +151,16 @@ export default function Page() {
                         modifyUser={modifyUser}
                     />
                 </>
-            }
+            )}
             <ContextMenu
                 vis={showContext}
                 loc={loc}
                 id={targetID}
                 onEdit={changeUser}
                 onDelete={deleteUser}
+                setStats={setStats}
             />
+            <Stats visible={statsVisible} stats={stats} data={data} />
         </>
     );
 }
