@@ -2,11 +2,17 @@ import { useState, useEffect } from 'react';
 import styles from "./contextMenu.module.css";
 
 export default function ContextMenu ({ vis, id, loc, onEdit, onDelete }) {
-    const showNotes = (id) => {}
+    console.log(id);
+    
+    const showNotes = () => {}
 
-    const edit = (id) => {}
+    const edit = () => {
+        onEdit(id);
+    }
 
-    const del = (id) => {}
+    const del = () => {
+        onDelete(id);
+    }
     
     return (
         <div className={styles.contextMenu} style={{display: (vis ? "block" : "none"), top: loc.y, left: loc.x}}>

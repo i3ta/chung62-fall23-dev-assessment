@@ -40,6 +40,7 @@ export default function Page() {
         id: "-1",
     });
     const [loc, setLoc] = useState({ x: 0, y: 0 });
+    const [targetID, setTargetID] = useState("-1");
 
     useEffect(() => {
         async function fetchDataAsync() {
@@ -70,8 +71,8 @@ export default function Page() {
     };
 
     const modifyUser = () => {
-        deleteUser(user["id"]);
-        setData([...data, user]);
+        var tmpData = data.filter((u) => u["id"] !== user["id"]);
+        setData([...tmpData, user]);
         if (parseInt(user["id"]) === currentID) {
             setCurrentID(currentID + 1);
         }
@@ -79,8 +80,8 @@ export default function Page() {
     };
 
     const deleteUser = (id) => {
-        console.log(id);
-        setData(data.filter((user) => user.id !== id));
+        console.log(`Delete ${id}`);
+        setData(data.filter((user) => user["id"] !== id));
     };
 
     const newUser = () => {
@@ -93,8 +94,9 @@ export default function Page() {
         console.log(`Position: ${e.pageX} ${e.pageY}`);
         setLoc({ x: e.pageX, y: e.pageY });
         setShowContext(true);
+        setTargetID(id);
     };
-    
+
     useEffect(() => {
         const handleClick = () => setShowContext(false);
         window.addEventListener("click", handleClick);
@@ -117,7 +119,13 @@ export default function Page() {
                 closeOverlay={closeOverlay}
                 modifyUser={modifyUser}
             />
-            <ContextMenu vis={showContext} loc={loc} />
+            <ContextMenu
+                vis={showContext}
+                loc={loc}
+                id={targetID}
+                onEdit={changeUser}
+                onDelete={deleteUser}
+            />
         </>
     );
 }
