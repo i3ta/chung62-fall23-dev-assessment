@@ -52,12 +52,12 @@ export default function Utils({ curPage, pageCount, addNew }) {
     return (
         <div className={styles.utils}>
             <div className={styles.pageSelector}>
-                <button className={styles.changePage} onClick={prevPage}>
-                    <AiOutlineArrowLeft value={{ size: "30px" }} />
+                <button className={styles.changePage} onClick={prevPage} style={{opacity: (curPage == 1 ? 0.3 : 1)}}>
+                    <AiOutlineArrowLeft value={{ size: "60px" }} />
                 </button>
                 <PageSelector curPage={curPage} pageCount={pageCount} />
-                <button className={styles.changePage} onClick={nextPage}>
-                    <AiOutlineArrowRight value={{ size: "30px" }} />
+                <button className={styles.changePage} onClick={nextPage} style={{opacity: (curPage == pageCount ? 0.3 : 1)}}>
+                    <AiOutlineArrowRight value={{ size: "60px" }} />
                 </button>
             </div>
             <Button addNew={addNew} />
