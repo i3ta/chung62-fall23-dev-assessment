@@ -7,7 +7,6 @@ export default function handler (req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         try {
             res.status(200).json(database.filter(user => user['id'] === id)[0]);
-            // res.status(200).json(database);
         } catch (error) {
             res.status(500).json({ error: 'An error occured' });
         }
