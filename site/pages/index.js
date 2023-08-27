@@ -71,8 +71,16 @@ export default function Page() {
     };
 
     const modifyUser = () => {
+        const cmp = (a, b) => {
+            const A = parseInt(a['id']);
+            const B = parseInt(b['id']);
+            if(A < B) return -1;
+            if(A > B) return 1;
+            return 0;
+        }
+
         var tmpData = data.filter((u) => u["id"] !== user["id"]);
-        setData([...tmpData, user]);
+        setData([...tmpData, user].sort(cmp));
         if (parseInt(user["id"]) === currentID) {
             setCurrentID(currentID + 1);
         }
