@@ -6,21 +6,21 @@ import Table from "../components/table";
 import Overlay from "../components/overlay";
 import ContextMenu from "../components/contextMenu";
 
-function getPreset (id) {
+function getPreset(id) {
     console.log(`preset for ID: ${id}`);
     const idString = id.toString();
     console.log(idString);
-    return ({
-        "name": "",
-        "avatar": "",
-        "hero_project": "",
-        "notes": "",
-        "email": "",
-        "phone": "",
-        "rating": "",
-        "status": false,
-        "id": idString,
-    });
+    return {
+        name: "",
+        avatar: "",
+        hero_project: "",
+        notes: "",
+        email: "",
+        phone: "",
+        rating: "",
+        status: false,
+        id: idString,
+    };
 }
 
 export default function Page() {
@@ -29,16 +29,17 @@ export default function Page() {
     const [currentID, setCurrentID] = useState(0);
     const [showContext, setShowContext] = useState(false);
     const [user, setUser] = useState({
-        "name": "",
-        "avatar": "",
-        "hero_project": "",
-        "notes": "",
-        "email": "",
-        "phone": "",
-        "rating": "",
-        "status": false,
-        "id": "-1",
+        name: "",
+        avatar: "",
+        hero_project: "",
+        notes: "",
+        email: "",
+        phone: "",
+        rating: "",
+        status: false,
+        id: "-1",
     });
+    const [loc, setLoc] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         async function fetchDataAsync() {
@@ -47,7 +48,7 @@ export default function Page() {
             var maxID = 0;
             for (var i = 0; i < fetchedData.length; i++) {
                 const user = fetchedData[i];
-                maxID = Math.max(maxID, parseInt(user['id']));
+                maxID = Math.max(maxID, parseInt(user["id"]));
             }
             setCurrentID(maxID + 1);
         }
@@ -64,24 +65,24 @@ export default function Page() {
     };
 
     const changeUser = (id) => {
-        setUser(data.filter(user => user['id'] === id)[0]);
+        setUser(data.filter((user) => user["id"] === id)[0]);
         openOverlay();
-    }
-    
+    };
+
     const modifyUser = () => {
-        deleteUser(user['id']);
+        deleteUser(user["id"]);
         setData([...data, user]);
-        if(parseInt(user['id']) === currentID) {
+        if (parseInt(user["id"]) === currentID) {
             setCurrentID(currentID + 1);
         }
         setUser(getPreset(currentID + 1));
     };
-    
+
     const deleteUser = (id) => {
         console.log(id);
-        setData(data.filter(user => user.id !== id));
+        setData(data.filter((user) => user.id !== id));
     };
-    
+
     const newUser = () => {
         setUser(getPreset(currentID));
         openOverlay();
@@ -89,14 +90,26 @@ export default function Page() {
 
     const onRightClick = (id, e) => {
         console.log(`Recieved click ${id}`);
+        console.log(`Position: ${e.pageX} ${e.pageY}`);
+        setLoc({ x: e.pageX, y: e.pageY });
         setShowContext(true);
-    }
+    };
+    
+    useEffect(() => {
+        const handleClick = () => setShowContext(false);
+        window.addEventListener("click", handleClick);
+        return () => window.removeEventListener("click", handleClick);
+    }, []);
 
     return (
         <>
             <Header />
             <Utils addNew={newUser} />
-            <Table key={data.id} tableData={data} rightClickAction={onRightClick} />
+            <Table
+                key={data.id}
+                tableData={data}
+                rightClickAction={onRightClick}
+            />
             <Overlay
                 user={user}
                 setUser={setUser}
@@ -104,7 +117,7 @@ export default function Page() {
                 closeOverlay={closeOverlay}
                 modifyUser={modifyUser}
             />
-            <ContextMenu vis={showContext} />
+            <ContextMenu vis={showContext} loc={loc} />
         </>
     );
 }
