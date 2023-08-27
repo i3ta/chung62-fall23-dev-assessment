@@ -86,6 +86,7 @@ export default function Page() {
 
         var tmpData = data.filter((u) => u["id"] !== user["id"]);
         setData([...tmpData, user].sort(cmp));
+        setPageCount(Math.ceil((tmpData.length + 1) / 10))
         if (parseInt(user["id"]) === currentID) {
             setCurrentID(currentID + 1);
         }
@@ -94,7 +95,11 @@ export default function Page() {
 
     const deleteUser = (id) => {
         console.log(`Delete ${id}`);
-        setData(data.filter((user) => user["id"] !== id));
+        const newData = data.filter((user) => user["id"] !== id);
+        setData(newData);
+        const newPageCount = Math.ceil(newData.length / 10);
+        setPageCount(newPageCount);
+        if(page > newPageCount) router.replace(`/${newPageCount}`)
     };
 
     const newUser = () => {
