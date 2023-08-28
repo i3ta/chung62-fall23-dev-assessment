@@ -94,8 +94,8 @@ export default function Table({ tableData, rightClickAction }) {
         <table className={styles.table}>
             <thead className={styles.header}>
                 <tr>
-                    <th style={{width: '40%'}}>CONTACT NAME</th>
-                    <th style={{width: '40%'}}>CONTACT</th>
+                    <th style={{width: '50%'}}>CONTACT NAME</th>
+                    <th style={{width: '50%'}}>CONTACT</th>
                     <th>PROJECT</th>
                     <th>STATUS</th>
                     <th>RATING</th>

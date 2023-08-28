@@ -12,8 +12,9 @@
     text-align: center;
 }
 
-.contextMenu div {
+.contextMenu div{
     padding: 5px;
+    color: #000000;
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -21,4 +22,9 @@
 .contextMenu div:hover {
     background-color: #efefef;
     transition: background-color 0.2s;
+}
+
+.contextMenu a {
+    color: #000000;
+    text-decoration: none;
 }
