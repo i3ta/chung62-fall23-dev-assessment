@@ -11,10 +11,12 @@ function StatBar({ name, stat }) {
 }
 
 export default function Stats({ visible, stats, data }) {
+    // Overlay for showing click statistics
+    // Note: because the data isn't sent to the server, no data will ever show up
+
     const getName = (id) => {
         data.filter((user) => {
-            if(user['id'] === id) 
-                return user["name"];
+            if (user["id"] === id) return user["name"];
         });
     };
 

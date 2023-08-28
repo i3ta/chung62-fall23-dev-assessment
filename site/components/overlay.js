@@ -1,6 +1,8 @@
 import styles from "./overlay.module.css";
 
 export default function Overlay({ user, setUser, visibility, closeOverlay, modifyUser }) {
+    // New/edit user overlay
+    
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };

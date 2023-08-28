@@ -4,6 +4,8 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import styles from "./utils.module.css";
 
 function Button({ addNew }) {
+    // View for new user button 
+
     return (
         <button className={styles.newButton} onClick={addNew}>
             New User
@@ -12,6 +14,8 @@ function Button({ addNew }) {
 }
 
 function PageSelector({ curPage, pageCount }) {
+    // View for page selector
+    
     const router = useRouter();
 
     const onChange = () => {
@@ -36,6 +40,8 @@ function PageSelector({ curPage, pageCount }) {
 }
 
 export default function Utils({ curPage, pageCount, addNew }) {
+    // Utility bar (page selector, new user button)
+
     const router = useRouter();
 
     const prevPage = () => {

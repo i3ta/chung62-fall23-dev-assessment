@@ -4,6 +4,8 @@ import { fetchUser } from "./api";
 import styles from "./profile.module.css";
 
 function Status({ status }) {
+    // Module for status of user (active/inactive)
+
     return (
         <div className={status ? styles.statusActive : styles.statusInactive}>
             {status ? "Active" : "Inactive"}
@@ -12,7 +14,11 @@ function Status({ status }) {
 }
 
 function Project({ project }) {
+    // Module for project the user is working on
+
     const color = (project) => {
+        // Function to generate color based on the name of the project
+
         var hue = 0;
         for (var i = 0; i < project.length; i++) {
             hue += project.charCodeAt(i);
@@ -39,6 +45,8 @@ function Project({ project }) {
 }
 
 export default function Profile({ id }) {
+    // Specific user profile (for notes)
+
     const [profile, setProfile] = useState({});
     const [loaded, setLoaded] = useState(false);
 

@@ -2,6 +2,8 @@ import Link from "next/link";
 import styles from "./contextMenu.module.css";
 
 export default function ContextMenu ({ vis, id, loc, onEdit, onDelete, setStats }) {
+    // Context menu
+    
     const edit = () => {
         onEdit(id);
     }

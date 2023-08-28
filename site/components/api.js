@@ -14,6 +14,7 @@ async function fetchData () {
     }
 }
 
+// Fetch data for specific user
 async function fetchUser (id) {
     try {
         const response = await fetch(`/api/user/${id}`, {

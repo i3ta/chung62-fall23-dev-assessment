@@ -1,6 +1,7 @@
 import { AiOutlineMail, AiOutlinePhone } from 'react-icons/ai';
 import styles from "./table.module.css";
 
+// Modules for different parts of table
 function Status({ status }) {
     return (
         <div className={status ? styles.statusActive : styles.statusInactive}>
@@ -43,6 +44,8 @@ function Rating ({ rating }) {
 }
 
 function Row({ rowData, rightClickAction }) {
+    // View for single table row
+
     // Deconstruct data
     const {
         name,
@@ -90,6 +93,8 @@ function Row({ rowData, rightClickAction }) {
 }
 
 export default function Table({ tableData, rightClickAction }) {
+    // Table of profiles
+    
     return (
         <table className={styles.table}>
             <thead className={styles.header}>
