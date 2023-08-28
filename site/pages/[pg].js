@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { fetchData } from "../components/api";
 import Header from "../components/header";
 import Utils from "../components/utils";
 import Table from "../components/table";
 import Overlay from "../components/overlay";
 import ContextMenu from "../components/contextMenu";
-import Stats from "../components/stats";
 
 function getPreset(id) {
     console.log(`preset for ID: ${id}`);
@@ -26,11 +24,11 @@ function getPreset(id) {
 }
 
 export default function Page() {
-    const [data, setData] = useState([]);
-    const [overlayOpen, setOverlayOpen] = useState(false);
-    const [currentID, setCurrentID] = useState(0);
-    const [showContext, setShowContext] = useState(false);
-    const [user, setUser] = useState({
+    const [data, setData] = useState([]);                   // Data from database
+    const [overlayOpen, setOverlayOpen] = useState(false);  // Visibility of new/edit volunteer menu
+    const [currentID, setCurrentID] = useState(0);          // Next unused user ID
+    const [showContext, setShowContext] = useState(false);  // Visibility of context menu
+    const [user, setUser] = useState({                      // Target user to be edited
         name: "",
         avatar: "",
         hero_project: "",
@@ -41,15 +39,11 @@ export default function Page() {
         status: false,
         id: "-1",
     });
-    const [loc, setLoc] = useState({ x: 0, y: 0 });
-    const [targetID, setTargetID] = useState("-1");
-    const router = useRouter();
-    const page = router.query.pg;
-    const [pageCount, setPageCount] = useState(0);
-    const [stats, setStats] = useState({});
-    const [statsVisible, setStatsVisible] = useState(false);
+    const [loc, setLoc] = useState({ x: 0, y: 0 });         // Location of context menu
+    const [targetID, setTargetID] = useState("-1");         // User ID of target of context menu
 
     useEffect(() => {
+        // Fetching data from API
         async function fetchDataAsync() {
             const fetchedData = await fetchData();
             setData(fetchedData);
@@ -59,37 +53,34 @@ export default function Page() {
                 maxID = Math.max(maxID, parseInt(user["id"]));
             }
             setCurrentID(maxID + 1);
-            setPageCount(Math.ceil(fetchedData.length / 10));
         }
 
         fetchDataAsync();
     }, []);
 
-    const openOverlay = () => {
-        setOverlayOpen(true);
-    };
-
     const closeOverlay = () => {
+        // Close new/edit volunteer overlay
         setOverlayOpen(false);
     };
 
-    const changeUser = (id) => {
+    const beginEditUser = (id) => {
+        // Open menu for editing user
         setUser(data.filter((user) => user["id"] === id)[0]);
-        openOverlay();
+        setOverlayOpen(true);
     };
 
-    const modifyUser = () => {
+    const editUser = () => {
+        // Change the user information
         const cmp = (a, b) => {
-            const A = parseInt(a["id"]);
-            const B = parseInt(b["id"]);
-            if (A < B) return -1;
-            if (A > B) return 1;
+            const A = parseInt(a['id']);
+            const B = parseInt(b['id']);
+            if(A < B) return -1;
+            if(A > B) return 1;
             return 0;
-        };
+        }
 
         var tmpData = data.filter((u) => u["id"] !== user["id"]);
         setData([...tmpData, user].sort(cmp));
-        setPageCount(Math.ceil((tmpData.length + 1) / 10));
         if (parseInt(user["id"]) === currentID) {
             setCurrentID(currentID + 1);
         }
@@ -97,32 +88,26 @@ export default function Page() {
     };
 
     const deleteUser = (id) => {
+        // Delete a user
         console.log(`Delete ${id}`);
-        const newData = data.filter((user) => user["id"] !== id);
-        setData(newData);
-        const newPageCount = Math.ceil(newData.length / 10);
-        setPageCount(newPageCount);
-        if (page > newPageCount) router.replace(`/${newPageCount}`);
+        setData(data.filter((user) => user["id"] !== id));
     };
 
     const newUser = () => {
+        // Create new user
         setUser(getPreset(currentID));
-        openOverlay();
+        setOverlayOpen(true);
     };
 
     const onRightClick = (id, e) => {
+        // Action to be performed on right click
         setLoc({ x: e.pageX, y: e.pageY });
         setShowContext(true);
         setTargetID(id);
     };
 
-    const showStats = () => {
-        console.log("SHOW STATS");
-        console.log(stats);
-        setStatsVisible(true);
-    };
-
     useEffect(() => {
+        // Handle left click to close context menu
         const handleClick = () => setShowContext(false);
         window.addEventListener("click", handleClick);
         return () => window.removeEventListener("click", handleClick);
@@ -130,37 +115,27 @@ export default function Page() {
 
     return (
         <>
-            <Header showStats={showStats} />
-            {page && (
-                <>
-                    <Utils
-                        addNew={newUser}
-                        pageCount={pageCount}
-                        curPage={page}
-                    />
-                    <Table
-                        key={data.id}
-                        tableData={data.slice((page - 1) * 10, page * 10)}
-                        rightClickAction={onRightClick}
-                    />
-                    <Overlay
-                        user={user}
-                        setUser={setUser}
-                        visibility={overlayOpen}
-                        closeOverlay={closeOverlay}
-                        modifyUser={modifyUser}
-                    />
-                </>
-            )}
+            <Header />
+            <Utils addNew={newUser} />
+            <Table
+                key={data.id}
+                tableData={data}
+                rightClickAction={onRightClick}
+            />
+            <Overlay
+                user={user}
+                setUser={setUser}
+                visibility={overlayOpen}
+                closeOverlay={closeOverlay}
+                editUser={editUser}
+            />
             <ContextMenu
                 vis={showContext}
                 loc={loc}
                 id={targetID}
-                onEdit={changeUser}
+                onEdit={beginEditUser}
                 onDelete={deleteUser}
-                setStats={setStats}
             />
-            <Stats visible={statsVisible} stats={stats} data={data} />
         </>
     );
 }
